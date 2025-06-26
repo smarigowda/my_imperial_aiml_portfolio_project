@@ -146,7 +146,7 @@ We'll tune key parameters like:
 
 ✅ **Best model: Decision Tree (tuned)**
 
-## Non Technical Report
+# Non Technical Report
 
 ### Objective
 
