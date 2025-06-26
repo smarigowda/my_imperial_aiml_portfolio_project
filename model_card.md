@@ -6,7 +6,7 @@
 
 **Name**: MovieLens Content-Based Recommendation using Decision Tree
 
-**Author**: [Your Name]
+**Author**: Santosh Marigowda
 
 **Industry**: Media and Entertainment
 
@@ -57,7 +57,7 @@
 ## **7.** **Ethical Considerations**
 
 - **Bias**: Model may favor popular genres or mainstream content over niche interests.
-- **Privacy**: All data used is anonymized; however, real deployments must comply with data protection standards (e.g., GDPR).
+- **Privacy**: All data used is anonymized; however, real deployments must comply with data protection standards (GDPR).
 - **Transparency**: Decision Trees provide explainability, which is beneficial in sensitive recommendation contexts.
 
 ## **8.** **Next Steps**
