@@ -1,4 +1,4 @@
-# Recommend Content (e.g., movies, articles, songs) to users based on preferences or features
+# Recommend Content (movies, articles, songs) to users based on preferences or features
 
 ## Exploring Datasets for Content Recommendation:
 
