@@ -1,4 +1,6 @@
-# Exploring Datasets for Content Recommendation:
+# Recommend Content (e.g., movies, articles, songs) to users based on preferences or features
+
+## Exploring Datasets for Content Recommendation:
 
 From my exploration, I found the following data sets which I can use for the Content Recommendation.
 
@@ -20,7 +22,7 @@ MoveLens
 
 **I chose to use Movie Lense dataset.**
 
-# Research Question/ Objective:
+## Research Question/ Objective:
 
 The question I would like to answer using a ML model is to recommend content (e.g., movies, articles, songs) to users based on preferences or features. **Content-based filtering** (based on item features like genre, tags, etc.)
 
@@ -28,24 +30,24 @@ The question I would like to answer using a ML model is to recommend content (e.
 
 GroupLens Research has collected and made available rating data sets from the MovieLens web site ([https://movielens.org](https://movielens.org/))
 
-I will be using this data set https://grouplens.org/datasets/movielens/ for my Portfolio Project. This data set has 100000 ratings by 943 users on 1682 items. Each user has rated at least 20 movies.  Users and items are numbered consecutively from 1.  The data is randomly ordered. The time stamps are unix seconds since 1/1/1970 UTC. The last 19 fields are the genres, a 1 indicates the movie is of that genre, a 0 indicates it is not; movies can be in several genres at once. **Features:** Movie titles, genres, user ratings
+I will be using this data set https://grouplens.org/datasets/movielens/ for my Portfolio Project. This data set has 100000 ratings by 943 users on 1682 items. Each user has rated at least 20 movies. Users and items are numbered consecutively from 1. The data is randomly ordered. The time stamps are unix seconds since 1/1/1970 UTC. The last 19 fields are the genres, a 1 indicates the movie is of that genre, a 0 indicates it is not; movies can be in several genres at once. **Features:** Movie titles, genres, user ratings
 
-# Pre-Processing the data:
+## Pre-Processing the data:
 
 **MovieLens 100K dataset** https://grouplens.org/datasets/movielens/100k/ which I am planning to use is **very clean** and was curated specifically for ML research. This data has been cleaned up - users who had less than 20 ratings or did not have complete demographic information were removed from this data set, so I am expecting that **minimal preprocessing is needed**
 
-# KNN Model:
+## KNN Model:
 
-# Tested with n_neighbors = 5, 8 and 10
+### Tested with n_neighbors = 5, 8 and 10
 
 #### Model Evaluation with n_neighbors = 5
 
-| Metric        | Value  | Interpretation                                               |
-| ------------- | ------ | ------------------------------------------------------------ |
-| **Accuracy**  | 0.5210 | Only ~52% of predictions were correct. Barely better than random guessing (50%) in a binary task. |
+| Metric        | Value  | Interpretation                                                                                                                          |
+| ------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **Accuracy**  | 0.5210 | Only ~52% of predictions were correct. Barely better than random guessing (50%) in a binary task.                                       |
 | **Precision** | 0.5897 | ~59% of the items predicted as "liked" were actually liked. That’s decent — the model is somewhat conservative in predicting positives. |
-| **Recall**    | 0.4216 | Low — the model is missing many true positives (items users actually liked). |
-| **F1 Score**  | 0.4916 | Harmonic mean of precision and recall — this indicates overall balance is weak. |
+| **Recall**    | 0.4216 | Low — the model is missing many true positives (items users actually liked).                                                            |
+| **F1 Score**  | 0.4916 | Harmonic mean of precision and recall — this indicates overall balance is weak.                                                         |
 
 #### Assessment
 
@@ -56,11 +58,9 @@ I will be using this data set https://grouplens.org/datasets/movielens/ for my P
   - Data has noise
   - Classes are not well-separated in feature space
 
+## **Decision Tree Model:**
 
-
-# **Decision Tree Model:**
-
-# **Performance Summary**
+### **Performance Summary**
 
 | Metric    | Class 0 ("Not Liked") | Class 1 ("Liked") |
 | --------- | --------------------- | ----------------- |
@@ -74,7 +74,7 @@ I will be using this data set https://grouplens.org/datasets/movielens/ for my P
 - **Macro Avg F1-Score**: `0.58`
 - **Weighted Avg F1-Score**: `0.59`
 
-------
+---
 
 ## Interpretation
 
@@ -91,7 +91,7 @@ I will be using this data set https://grouplens.org/datasets/movielens/ for my P
 - May be **overfitting** slightly — you can check this by comparing training vs. validation/test scores.
 - Could benefit from **hyperparameter tuning** (like `max_depth`, `min_samples_split`, etc.)
 
-# Logistic Regression
+## Logistic Regression
 
 ### **Model Comparison (Test Set)**
 
@@ -108,13 +108,13 @@ I will be using this data set https://grouplens.org/datasets/movielens/ for my P
 - **Logistic Regression** is a close second. It has slightly lower F1 score but does well on **recall for class 1 (0.77)** — this could be important if you care about catching all positive recommendations.
 - **KNN** performs the weakest overall, especially in recall and F1 score.
 
-------
+---
 
 ### **Recommendation:**
 
 Since Decision Tree gave the **best balance of metrics**, let's proceed with **hyperparameter tuning on the Decision Tree** to see if we can improve it further.
 
-# Hyperparameter Tuning
+## Hyperparameter Tuning
 
 Let's perform **hyperparameter tuning** on the **Decision Tree Classifier** using **GridSearchCV** to optimize its performance.
 
@@ -144,17 +144,15 @@ We'll tune key parameters like:
 | **Decision Tree** | 0.60     | 0.59                |
 | **Logistic Reg.** | 0.58     | 0.56                |
 
-
-
 ✅ **Best model: Decision Tree (tuned)**
 
-# Non Technical Report
+## Non Technical Report
 
 ### Objective
 
 I have built a system that helps suggest movies users are likely to enjoy, based on their past viewing and rating behavior. This system supports users in discovering relevant content without being overwhelmed by too many options.
 
-------
+---
 
 ### The Data
 
@@ -167,11 +165,11 @@ I have used the **MovieLens dataset**, which includes:
 To simplify, we converted the ratings into:
 
 - "Liked" (ratings of 4 or 5)
--  "Not Liked" (ratings below 4)
+- "Not Liked" (ratings below 4)
 
 This helped us focus on predicting whether a user would like a particular movie.
 
-------
+---
 
 ### How the Recommendation Works
 
@@ -181,11 +179,11 @@ We used a machine learning technique called a **Decision Tree**. Think of a deci
 
 - Has the user liked other movies in the same genre?
 - Is the average rating of the movie high?
-   → Recommend the movie!
+  → Recommend the movie!
 
 It works similarly to how a friend might recommend a movie based on your past preferences.
 
-------
+---
 
 ### Why Decision Tree?
 
@@ -197,13 +195,13 @@ I tried three different methods:
 
 Out of these, **Decision Tree gave me the best performance**, balancing **accuracy** and **clarity**.
 
-------
+---
 
 ### Performance Summary
 
 On unseen test data, the decision tree correctly predicted preferences **60% of the time**. It was especially good at identifying movies users are **likely to enjoy**, with a **75% recall rate** (meaning it caught most of the movies people liked).
 
-------
+---
 
 ### Benefits for Users
 
@@ -211,7 +209,7 @@ On unseen test data, the decision tree correctly predicted preferences **60% of 
 - **Personalization**: Picks movies tailored to your taste.
 - **Transparent**: The logic behind recommendations is understandable.
 
-------
+---
 
 ### Next Steps
 
